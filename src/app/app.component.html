@@ -1,0 +1,28 @@
+<div class="container">
+  <header>
+    <h1>AI Symptom Analyzer</h1>
+  </header>
+
+  <div class="card">
+    <h2>🤖 Describe your symptoms</h2>
+    <textarea [(ngModel)]="symptoms" rows="6" placeholder="e.g., Chest pain and shortness of breath"></textarea>
+    <button class="primary" (click)="analyze()">Analyze Symptoms</button>
+  </div>
+
+  <div *ngIf="result" class="card result-card">
+    <h3>🔍 Analysis Result</h3>
+    <h2>result.userFriendlyMessage</h2>
+    <p><strong>Specialist:</strong> {{result.specialistSuggestion}}</p>
+    <p><strong>Urgency:</strong> {{result.urgency}}</p>
+    <h4>Recommended Doctors</h4>
+    <ul>
+      <li *ngFor="let doctor of result.doctors">
+        {{doctor.name}} – {{doctor.specialty}} 
+      </li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 AI-powered Health Guidance</p>
+  </footer>
+</div>
