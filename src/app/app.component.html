@@ -1,28 +1,71 @@
-<div class="container">
-  <header>
-    <h1>AI Symptom Analyzer</h1>
+<div class="app-wrapper">
+  <header class="hero-header">
+    <div class="header-content">
+      <h1 class="title-glow">AI Symptom Analyzer</h1>
+      <p class="subtitle">Your intelligent health companion – powered by advanced AI</p>
+      <div class="ai-animation">
+        <span class="ai-dot"></span>
+        <span class="ai-dot"></span>
+        <span class="ai-dot"></span>
+      </div>
+    </div>
   </header>
 
-  <div class="card">
-    <h2>🤖 Describe your symptoms</h2>
-    <textarea [(ngModel)]="symptoms" rows="6" placeholder="e.g., Chest pain and shortness of breath"></textarea>
-    <button class="primary" (click)="analyze()">Analyze Symptoms</button>
-  </div>
+  <main class="main-content">
+    <section class="symptom-section">
+      <div class="symptom-card glassmorphism">
+        <h2 class="section-title">Tell Us What's Bothering You</h2>
+        <textarea [(ngModel)]="symptoms" rows="8" placeholder="Describe your symptoms in detail, e.g., 'Persistent headache, nausea, and fatigue for the past week'" class="symptom-textarea"></textarea>
+        <button class="analyze-btn" (click)="analyze()" [disabled]="isLoading">
+          <span *ngIf="!isLoading">Analyze Now</span>
+          <span *ngIf="isLoading">Analyzing...</span>
+        </button>
+      </div>
+    </section>
 
-  <div *ngIf="result" class="card result-card">
-    <h3>🔍 Analysis Result</h3>
-    <h2>result.userFriendlyMessage</h2>
-    <p><strong>Specialist:</strong> {{result.specialistSuggestion}}</p>
-    <p><strong>Urgency:</strong> {{result.urgency}}</p>
-    <h4>Recommended Doctors</h4>
-    <ul>
-      <li *ngFor="let doctor of result.doctors">
-        {{doctor.name}} – {{doctor.specialty}} 
-      </li>
-    </ul>
-  </div>
+    <div *ngIf="isLoading" class="loading-overlay">
+      <div class="loading-content">
+        <div class="neuron-loader">
+          <div class="neuron"></div>
+          <div class="neuron"></div>
+          <div class="neuron"></div>
+          <div class="neuron"></div>
+        </div>
+        <p class="loading-text">Consulting our AI...</p>
+      </div>
+    </div>
 
-  <footer>
-    <p>&copy; 2025 AI-powered Health Guidance</p>
+    <section #resultSection *ngIf="result && !isLoading" class="result-section animate-slide-up">
+      <div class="result-card glassmorphism">
+        <h3 class="section-title">Your Personalized Analysis</h3>
+        <div class="message-bubble">
+          <p class="user-message">{{result.userFriendlyMessage}}</p>
+        </div>
+        <div class="info-grid">
+          <div class="info-item">
+            <strong>Recommended Specialist:</strong>
+            <span>{{result.specialistSuggestion}}</span>
+          </div>
+          <!-- <div class="info-item">
+            <strong>Urgency Level:</strong>
+            <span [ngClass]="{'urgency-high': result.urgency === 'High', 'urgency-medium': result.urgency === 'Medium', 'urgency-low': result.urgency === 'Low'}">{{result.urgency}}</span>
+          </div> -->
+        </div>
+        <h4 class="doctors-title">Suggested Doctors</h4>
+        <div class="doctors-grid">
+          <div *ngFor="let doctor of result.doctors" class="doctor-card">
+            <div class="doctor-avatar"></div>
+            <h5>{{doctor.name}}</h5>
+            <p class="specialty">{{doctor.specialty}}</p>
+            <!-- <p class="availability" [ngClass]="{'available-yes': doctor.available === 'Yes', 'available-no': doctor.available === 'No'}">Available: {{doctor.available}}</p> -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-wave">
+    <p>&copy; 2025 AI-powered Health Guidance | MyHealthyGate</p>
+    <div class="wave"></div>
   </footer>
 </div>
