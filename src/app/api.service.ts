@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ApiService {
   http = inject(HttpClient)
   // private readonly getAiResponseUrl = 'https://localhost:8080/api/AISymptomsMapping';
-  private readonly getAiResponseUrl = 'https://sankets-symptom-to-specialist.up.railway.app/api/AISymptomsMapping';
+  private readonly getAiResponseUrl = 'https://symptomschecker.up.railway.app/api/AISymptomsMapping';
 
 
 public getAiResponse(symptoms: any): Observable<any> {
